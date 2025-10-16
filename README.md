@@ -123,3 +123,23 @@ and log in with:
 Username: admin
 Password: admin
 ```
+### 3. 🔒 Configure Keycloak
+
+Inside the Keycloak Admin Console, perform the following setup:
+
+#### Create a new Realm
+
+- `myrealm`.
+
+#### Create a new Client
+
+1. Go to **Clients → Create**  
+2. Set the following:
+   - **Client ID:** `myclient`
+   - **Access Type:** `public` (or `confidential` if using backend flows)
+   - **Valid Redirect URIs:**
+
+   ```text
+   http://localhost:5173/*
+   ```
+   
