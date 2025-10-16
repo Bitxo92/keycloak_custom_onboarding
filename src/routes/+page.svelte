@@ -13,6 +13,7 @@
 	let isLoading = false;
 	let error = '';
 
+	// when component mounts subscribes to auth store , to check if user is already authenticated , if so redirects directly to our protected test route
 	onMount(() => {
 		const unsubscribe = isAuthenticated.subscribe(($isAuthenticated: any) => {
 			if ($isAuthenticated) {
@@ -36,7 +37,8 @@
 		error = '';
 
 		try {
-			// Use fetch with credentials -> IMPORTANT: this requires CORS to be properly configured
+			//IMPORTANT: this requires CORS to be properly configured
+            //call keycloak token endpoint directly, bypassing the use of keycloaks normal login form, allowing the use 
 			const response = await fetch(
 				`http://localhost:8080/realms/myrealm/protocol/openid-connect/token`,
 				{
