@@ -142,4 +142,36 @@ Inside the Keycloak Admin Console, perform the following setup:
    ```text
    http://localhost:5173/*
    ```
+<img src="images/Access_Settings.png" alt="Acess Settings"/>
+
+
+>[!NOTE]
+>For local development with a Svelte frontend and Keycloak:
+> - Set **Web Origins** to `*` (to avoid CORS issues during dev).
+> - Set **Valid Redirect URIs** to `http://localhost:5173/*`.
+> - This ensures Keycloak accepts requests from your Svelte app running locally.
+
+
+
+<img src="images/Direct_Access_Grant.png" alt="Acess Settings"/>
+
+
+
+>[!IMPORTANT]
+>Direct access grant must be enabled for credential exchange with keycloak`s server to work from our custom login
+
+
+### 4. 🧰 Install Dependencies
+This project uses Sveltekit with Vite. Once cloned install dependencies with:
+```bash
+npm install
+```
+
+Then run the local dev server:
+```bash
+npm run dev
+```
+by default, the app runs at `http://localhost:5173`
+
+
    
