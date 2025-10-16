@@ -174,4 +174,4 @@ npm run dev
 by default, the app runs at `http://localhost:5173`
 
 
-   
+<h2 align="center">⭐ Please Support this project by giving it a star ⭐</h2>
