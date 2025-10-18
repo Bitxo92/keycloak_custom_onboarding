@@ -11,6 +11,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
 	import { createEventDispatcher } from 'svelte';
+	import { CheckCircle } from '@lucide/svelte';
 	import { User, Mail, Lock, Eye, EyeOff, UserRoundPlus, UserRoundPen } from '@lucide/svelte';
 
 	const dispatch = createEventDispatcher();
@@ -24,6 +25,7 @@
 	let showPassword = false;
 	let showConfirm = false;
 	let error: string | null = null;
+	let success: string | null = null;
 	let loading = false;
 
 	const validate = () => {
@@ -47,8 +49,22 @@
 
 		loading = true;
 		try {
-			// emit event for parent to handle actual registration (e.g., call backend / keycloak)
-			dispatch('register', { firstName, lastName, username, email, password });
+			const res = await fetch('/api/register', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ username, email, password, firstName, lastName })
+			});
+
+			if (res.ok) {
+				success = 'Account has been successfully created. Redirecting to login...';
+				// clear any previous error
+				error = null;
+				// wait 2 seconds then redirect to login
+				setTimeout(() => (window.location.href = '/'), 2000);
+			} else {
+				const txt = await res.text();
+				throw new Error(txt || 'Registration failed');
+			}
 		} finally {
 			loading = false;
 		}
@@ -69,6 +85,18 @@
 			<CardContent class="grid gap-4">
 				{#if error}
 					<div class="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</div>
+				{/if}
+
+				{#if success}
+					<div class="mb-4 rounded-md bg-green-50 px-3 py-3 text-sm text-green-700">
+						<div class="flex items-start gap-3">
+							<CheckCircle class="h-5 w-5 shrink-0 text-green-600" />
+							<div>
+								<div class="font-medium">Successful registration</div>
+								<div class="text-sm text-green-700/80">{success}</div>
+							</div>
+						</div>
+					</div>
 				{/if}
 
 				<div class="grid gap-1">
