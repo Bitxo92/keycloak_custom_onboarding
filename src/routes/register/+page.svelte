@@ -11,7 +11,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
 	import { createEventDispatcher } from 'svelte';
-	import { CheckCircle } from '@lucide/svelte';
+	import { CheckCircle, AlertTriangle } from '@lucide/svelte';
 	import { User, Mail, Lock, Eye, EyeOff, UserRoundPlus, UserRoundPen } from '@lucide/svelte';
 
 	const dispatch = createEventDispatcher();
@@ -27,6 +27,7 @@
 	let error: string | null = null;
 	let success: string | null = null;
 	let loading = false;
+	let redirecting = false;
 
 	const validate = () => {
 		if (!username.trim()) return 'Username is required';
@@ -59,8 +60,14 @@
 				success = 'Account has been successfully created. Redirecting to login...';
 				// clear any previous error
 				error = null;
+				redirecting = true;
 				// wait 2 seconds then redirect to login
 				setTimeout(() => (window.location.href = '/'), 2000);
+			} else if (res.status === 409) {
+				// user already exists
+				error = 'A user with that username or email already exists.';
+				success = null;
+				return;
 			} else {
 				const txt = await res.text();
 				throw new Error(txt || 'Registration failed');
@@ -73,6 +80,11 @@
 
 <div class="flex h-screen min-h-[70vh] w-screen items-center justify-center p-6">
 	<Card class="w-full max-w-md">
+		{#if redirecting}
+			<div class="redirecting text-sm text-muted-foreground">
+				Redirecting<span class="dots"></span>
+			</div>
+		{/if}
 		<CardHeader>
 			<div class="flex items-center gap-2">
 				<UserRoundPlus class="h-5 w-5" />
@@ -84,7 +96,15 @@
 		<form on:submit|preventDefault={onSubmit}>
 			<CardContent class="grid gap-4">
 				{#if error}
-					<div class="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</div>
+					<div class="mb-4 rounded-md bg-destructive/10 px-3 py-3 text-sm text-destructive">
+						<div class="flex items-start gap-3">
+							<AlertTriangle class="h-5 w-5 shrink-0 text-destructive" />
+							<div>
+								<div class="font-medium">Registration failed</div>
+								<div class="text-sm text-destructive/80">{error}</div>
+							</div>
+						</div>
+					</div>
 				{/if}
 
 				{#if success}
@@ -220,3 +240,37 @@
 		</form>
 	</Card>
 </div>
+
+<style>
+	.redirecting {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 0.75rem;
+	}
+
+	.dots {
+		display: inline-block;
+		width: 1ch;
+		text-align: left;
+	}
+
+	.dots::after {
+		content: '\00a0\00a0\00a0';
+		animation: dots 1s steps(3, end) infinite;
+	}
+
+	@keyframes dots {
+		0%,
+		20% {
+			content: '\00a0';
+		}
+		40% {
+			content: '\00a0\00a0';
+		}
+		60%,
+		100% {
+			content: '\00a0\00a0\00a0';
+		}
+	}
+</style>
