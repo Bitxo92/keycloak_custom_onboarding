@@ -11,7 +11,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
 	import { createEventDispatcher } from 'svelte';
-	import { User, Mail, Lock, Eye, EyeOff } from '@lucide/svelte';
+	import { User, Mail, Lock, Eye, EyeOff, UserRoundPlus, UserRoundPen } from '@lucide/svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -58,7 +58,10 @@
 <div class="flex h-screen min-h-[70vh] w-screen items-center justify-center p-6">
 	<Card class="w-full max-w-md">
 		<CardHeader>
-			<CardTitle>Register</CardTitle>
+			<div class="flex items-center gap-2">
+				<UserRoundPlus class="h-5 w-5" />
+				<CardTitle>Register</CardTitle>
+			</div>
 			<CardDescription>Create a new account</CardDescription>
 		</CardHeader>
 
@@ -79,7 +82,8 @@
 				<div class="grid grid-cols-2 gap-4">
 					<div class="grid gap-1">
 						<Label for="firstName"
-							><span class="flex items-center gap-2 pl-2"><User class="h-4 w-4" />First Name</span
+							><span class="flex items-center gap-2 pl-2"
+								><UserRoundPen class="h-4 w-4" />First Name</span
 							></Label
 						>
 						<Input
@@ -92,7 +96,8 @@
 
 					<div class="grid gap-1">
 						<Label for="lastName"
-							><span class="flex items-center gap-2 pl-2"><User class="h-4 w-4" />Last Name</span
+							><span class="flex items-center gap-2 pl-2"
+								><UserRoundPen class="h-4 w-4" />Last Name</span
 							></Label
 						>
 						<Input id="lastName" bind:value={lastName} name="lastName" placeholder="Last name" />
