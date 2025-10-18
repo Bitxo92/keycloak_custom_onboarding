@@ -11,7 +11,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
 	import { createEventDispatcher } from 'svelte';
-	import { User, Mail, Lock } from '@lucide/svelte';
+	import { User, Mail, Lock, Eye, EyeOff } from '@lucide/svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -21,6 +21,8 @@
 	let lastName = '';
 	let password = '';
 	let confirmPassword = '';
+	let showPassword = false;
+	let showConfirm = false;
 	let error: string | null = null;
 	let loading = false;
 
@@ -115,13 +117,27 @@
 						><span class="flex items-center gap-2 pl-2"><Lock class="h-4 w-4" />Password</span
 						></Label
 					>
-					<Input
-						id="password"
-						type="password"
-						bind:value={password}
-						name="password"
-						placeholder="password"
-					/>
+					<div class="relative">
+						<Input
+							id="password"
+							type={showPassword ? 'text' : 'password'}
+							bind:value={password}
+							name="password"
+							placeholder="password"
+						/>
+						<button
+							type="button"
+							class="absolute top-1/2 right-2 -translate-y-1/2 p-1"
+							aria-label={showPassword ? 'Hide password' : 'Show password'}
+							on:click={() => (showPassword = !showPassword)}
+						>
+							{#if showPassword}
+								<EyeOff class="h-4 w-4" />
+							{:else}
+								<Eye class="h-4 w-4" />
+							{/if}
+						</button>
+					</div>
 				</div>
 
 				<div class="grid gap-1">
@@ -131,13 +147,27 @@
 						></Label
 					>
 
-					<Input
-						id="confirmPassword"
-						type="password"
-						bind:value={confirmPassword}
-						name="confirmPassword"
-						placeholder="confirm password"
-					/>
+					<div class="relative">
+						<Input
+							id="confirmPassword"
+							type={showConfirm ? 'text' : 'password'}
+							bind:value={confirmPassword}
+							name="confirmPassword"
+							placeholder="confirm password"
+						/>
+						<button
+							type="button"
+							class="absolute top-1/2 right-2 -translate-y-1/2 p-1"
+							aria-label={showConfirm ? 'Hide confirm password' : 'Show confirm password'}
+							on:click={() => (showConfirm = !showConfirm)}
+						>
+							{#if showConfirm}
+								<EyeOff class="h-4 w-4" />
+							{:else}
+								<Eye class="h-4 w-4" />
+							{/if}
+						</button>
+					</div>
 				</div>
 			</CardContent>
 
