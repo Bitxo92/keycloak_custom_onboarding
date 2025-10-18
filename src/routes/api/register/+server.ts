@@ -1,11 +1,13 @@
 import { json } from '@sveltejs/kit';
 
+// Keycloak server configuration
 const KEYCLOAK_URL = 'http://localhost:8080/';
 const REALM = 'myrealm';
 const ADMIN_USER = 'admin';
 const ADMIN_PASS = 'admin';
 const CLIENT_ID = 'myclient';
 
+// Function to get admin access token necessary for user creation
 async function getAdminToken() {
   const res = await fetch(`${KEYCLOAK_URL}/realms/${REALM}/protocol/openid-connect/token`, {
     method: 'POST',
@@ -21,6 +23,7 @@ async function getAdminToken() {
   return data.access_token;
 }
 
+// POST endpoint to handle user registration
 export async function POST({ request }) {
   const { username, email, password, firstName, lastName } = await request.json();
   const token = await getAdminToken();
