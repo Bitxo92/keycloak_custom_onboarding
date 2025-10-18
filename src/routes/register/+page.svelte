@@ -180,7 +180,7 @@
 						/>
 						<button
 							type="button"
-							class="absolute top-1/2 right-2 -translate-y-1/2 p-1"
+							class="absolute top-1/2 right-2 -translate-y-1/2 p-1 hover:cursor-pointer"
 							aria-label={showPassword ? 'Hide password' : 'Show password'}
 							on:click={() => (showPassword = !showPassword)}
 						>
@@ -210,7 +210,7 @@
 						/>
 						<button
 							type="button"
-							class="absolute top-1/2 right-2 -translate-y-1/2 p-1"
+							class="absolute top-1/2 right-2 -translate-y-1/2 p-1 hover:cursor-pointer"
 							aria-label={showConfirm ? 'Hide confirm password' : 'Show confirm password'}
 							on:click={() => (showConfirm = !showConfirm)}
 						>
@@ -226,7 +226,7 @@
 
 			<CardFooter class="flex flex-col gap-3">
 				<div class="mt-4 flex w-full">
-					<Button class="w-full py-3" type="submit" disabled={loading}>
+					<Button class="w-full py-3 hover:cursor-pointer" type="submit" disabled={loading}>
 						{#if loading}Registering...{:else}Register{/if}
 					</Button>
 				</div>
