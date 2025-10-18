@@ -6,7 +6,7 @@
 	import { isAuthenticated, user, token } from '../stores/auth.js';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { Eye, EyeOff } from '@lucide/svelte';
+	import { Eye, EyeOff, AlertTriangle } from '@lucide/svelte';
 	import keycloak from '$lib/keycloak.js';
 
 	let email = '';
@@ -96,6 +96,17 @@
 			<Card.Description>Enter your credentials below</Card.Description>
 		</Card.Header>
 		<Card.Content>
+			{#if error}
+				<div class="mb-4 rounded-md bg-destructive/10 px-3 py-3 text-sm text-destructive">
+					<div class="flex items-start gap-3">
+						<AlertTriangle class="h-5 w-5 shrink-0 text-destructive" />
+						<div>
+							<div class="font-medium">Login failed</div>
+							<div class="text-sm text-destructive/80">{error}</div>
+						</div>
+					</div>
+				</div>
+			{/if}
 			<form on:submit={handleCustomLogin}>
 				<div class="flex flex-col gap-6">
 					<div class="grid gap-2">
@@ -139,10 +150,6 @@
 							</button>
 						</div>
 					</div>
-
-					{#if error}
-						<div class="rounded bg-red-50 p-2 text-sm text-red-500">{error}</div>
-					{/if}
 				</div>
 			</form>
 		</Card.Content>
