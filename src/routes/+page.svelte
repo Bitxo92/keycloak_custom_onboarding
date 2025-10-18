@@ -6,7 +6,7 @@
 	import { isAuthenticated, user, token } from '../stores/auth.js';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { Eye, EyeOff, AlertTriangle } from '@lucide/svelte';
+	import { Eye, EyeOff, AlertTriangle, User, Mail, Lock } from '@lucide/svelte';
 	import keycloak from '$lib/keycloak.js';
 
 	let email = '';
@@ -92,7 +92,10 @@
 <div class="flex h-screen w-screen items-center justify-center">
 	<Card.Root class="w-full max-w-sm">
 		<Card.Header>
-			<Card.Title>Login</Card.Title>
+			<div class="flex items-center gap-2">
+				<User class="h-5 w-5" />
+				<Card.Title>Login</Card.Title>
+			</div>
 			<Card.Description>Enter your credentials below</Card.Description>
 		</Card.Header>
 		<Card.Content>
@@ -110,7 +113,10 @@
 			<form on:submit={handleCustomLogin}>
 				<div class="flex flex-col gap-6">
 					<div class="grid gap-2">
-						<Label for="email">Email</Label>
+						<Label for="email"
+							><span class="flex items-center gap-2 pl-2"><Mail class="h-4 w-4" />Email</span
+							></Label
+						>
 						<Input
 							id="email"
 							type="email"
@@ -122,7 +128,10 @@
 					</div>
 					<div class="grid gap-2">
 						<div class="flex items-center">
-							<Label for="password">Password</Label>
+							<Label for="password"
+								><span class="flex items-center gap-2 pl-2"><Lock class="h-4 w-4" />Password</span
+								></Label
+							>
 							<a href="##" class="ml-auto inline-block text-sm underline-offset-4 hover:underline">
 								Forgot your password?
 							</a>
