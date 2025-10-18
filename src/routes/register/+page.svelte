@@ -12,6 +12,8 @@
 	import { Button } from '$lib/components/ui/button';
 	import { createEventDispatcher } from 'svelte';
 	import { CheckCircle, AlertTriangle } from '@lucide/svelte';
+	import ErrorMessage from '$lib/components/ErrorMessage.svelte';
+	import SuccessMessage from '$lib/components/SuccessMessage.svelte';
 	import { User, Mail, Lock, Eye, EyeOff, UserRoundPlus, UserRoundPen } from '@lucide/svelte';
 
 	const dispatch = createEventDispatcher();
@@ -96,27 +98,11 @@
 		<form on:submit|preventDefault={onSubmit}>
 			<CardContent class="grid gap-4">
 				{#if error}
-					<div class="mb-4 rounded-md bg-destructive/10 px-3 py-3 text-sm text-destructive">
-						<div class="flex items-start gap-3">
-							<AlertTriangle class="h-5 w-5 shrink-0 text-destructive" />
-							<div>
-								<div class="font-medium">Registration failed</div>
-								<div class="text-sm text-destructive/80">{error}</div>
-							</div>
-						</div>
-					</div>
+					<ErrorMessage message={error} />
 				{/if}
 
 				{#if success}
-					<div class="mb-4 rounded-md bg-green-50 px-3 py-3 text-sm text-green-700">
-						<div class="flex items-start gap-3">
-							<CheckCircle class="h-5 w-5 shrink-0 text-green-600" />
-							<div>
-								<div class="font-medium">Successful registration</div>
-								<div class="text-sm text-green-700/80">{success}</div>
-							</div>
-						</div>
-					</div>
+					<SuccessMessage message={success} />
 				{/if}
 
 				<div class="grid gap-1">
