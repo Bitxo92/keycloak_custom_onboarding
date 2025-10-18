@@ -38,7 +38,7 @@
 
 		try {
 			//IMPORTANT: this requires CORS to be properly configured
-            //call keycloak token endpoint directly, bypassing the use of keycloaks normal login form, allowing the use 
+			//call keycloak token endpoint directly, bypassing the use of keycloaks normal login form, allowing the use
 			const response = await fetch(
 				`http://localhost:8080/realms/myrealm/protocol/openid-connect/token`,
 				{
@@ -133,6 +133,12 @@
 			<Button onclick={handleCustomLogin} class="hover: w-full cursor-pointer" disabled={isLoading}>
 				{isLoading ? 'Logging in...' : 'Login'}
 			</Button>
+
+			<div class="mt-3 text-center text-sm">
+				<a href="/register" class="text-muted-foreground hover:underline"
+					>Don't have an account? Register</a
+				>
+			</div>
 		</Card.Footer>
 	</Card.Root>
 </div>
