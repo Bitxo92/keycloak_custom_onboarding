@@ -90,7 +90,7 @@
 <div class="flex h-screen w-screen items-center justify-center">
 	<Card.Root class="w-full max-w-sm">
 		<Card.Header>
-			<Card.Title>Login to your account</Card.Title>
+			<Card.Title>Login</Card.Title>
 			<Card.Description>Enter your credentials below</Card.Description>
 		</Card.Header>
 		<Card.Content>
