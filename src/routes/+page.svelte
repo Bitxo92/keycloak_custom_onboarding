@@ -6,12 +6,14 @@
 	import { isAuthenticated, user, token } from '../stores/auth.js';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { Eye, EyeOff } from '@lucide/svelte';
 	import keycloak from '$lib/keycloak.js';
 
 	let email = '';
 	let password = '';
 	let isLoading = false;
 	let error = '';
+	let showPassword = false;
 
 	// when component mounts subscribes to auth store , to check if user is already authenticated , if so redirects directly to our protected test route
 	onMount(() => {
@@ -114,13 +116,28 @@
 								Forgot your password?
 							</a>
 						</div>
-						<Input
-							id="password"
-							type="password"
-							bind:value={password}
-							required
-							disabled={isLoading}
-						/>
+						<div class="relative w-full">
+							<Input
+								id="password"
+								type={showPassword ? 'text' : 'password'}
+								bind:value={password}
+								required
+								disabled={isLoading}
+								class="pr-10"
+							/>
+							<button
+								type="button"
+								class="absolute top-1/2 right-2 -translate-y-1/2 p-1"
+								aria-label={showPassword ? 'Hide password' : 'Show password'}
+								on:click={() => (showPassword = !showPassword)}
+							>
+								{#if showPassword}
+									<EyeOff class="h-4 w-4" />
+								{:else}
+									<Eye class="h-4 w-4" />
+								{/if}
+							</button>
+						</div>
 					</div>
 
 					{#if error}
