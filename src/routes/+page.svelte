@@ -147,7 +147,7 @@
 							/>
 							<button
 								type="button"
-								class="absolute top-1/2 right-2 -translate-y-1/2 p-1"
+								class="absolute top-1/2 right-2 -translate-y-1/2 p-1 hover:cursor-pointer"
 								aria-label={showPassword ? 'Hide password' : 'Show password'}
 								on:click={() => (showPassword = !showPassword)}
 							>
